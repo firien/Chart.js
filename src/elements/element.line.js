@@ -115,7 +115,11 @@ module.exports = function(Chart) {
 					ctx.lineTo(this._children[0]._view.x, vm.scaleZero);
 				}
 
-				ctx.fillStyle = vm.backgroundColor || Chart.defaults.global.defaultColor;
+				if (typeof vm.backgroundColor === 'function') {
+					ctx.fillStyle = vm.backgroundColor(ctx, this)
+				} else {
+					ctx.fillStyle = vm.backgroundColor || Chart.defaults.global.defaultColor;
+				}
 				ctx.closePath();
 				ctx.fill();
 			}
